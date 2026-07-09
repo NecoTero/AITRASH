@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Принцип согласования документации</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Бизнес-процесс</p>
+          <h1>Принцип согласования документации</h1>
+        </div>
+        <div class="toolbar" aria-label="Управление картой">
+          <button id="zoomOut" class="tool-button" type="button" title="Уменьшить">-</button>
+          <button id="resetView" class="tool-button wide" type="button">По центру</button>
+          <button id="zoomIn" class="tool-button" type="button" title="Увеличить">+</button>
+        </div>
+      </header>
+
+      <section class="map-frame" aria-label="Карта бизнес-процесса">
+        <div class="map-help">Перетаскивай поле мышью. Колесо мыши меняет масштаб.</div>
+        <div id="mapViewport" class="map-viewport">
+          <div id="processCanvas" class="process-canvas">
+            <svg id="connections" class="connections" aria-hidden="true"></svg>
+            <div id="processNodes" class="process-nodes"></div>
+          </div>
+        </div>
+      </section>
+
+      <aside id="detailsDrawer" class="details-drawer" aria-live="polite" aria-label="Детали шага">
+        <button id="closeDrawer" class="close-button" type="button" aria-label="Закрыть детали">x</button>
+        <div class="drawer-head">
+          <span id="stepNumber" class="step-number">1</span>
+          <div>
+            <p id="stepRole" class="role"></p>
+            <h2 id="stepTitle"></h2>
+          </div>
+        </div>
+
+        <dl class="meta-grid">
+          <div>
+            <dt>Роль</dt>
+            <dd id="stepRoleMeta"></dd>
+          </div>
+          <div>
+            <dt>Документ</dt>
+            <dd id="stepDocument"></dd>
+          </div>
+          <div>
+            <dt>Система</dt>
+            <dd id="stepSystem"></dd>
+          </div>
+          <div>
+            <dt>Срок</dt>
+            <dd id="stepDeadline"></dd>
+          </div>
+          <div class="wide-meta">
+            <dt>Переход</dt>
+            <dd id="stepTransition"></dd>
+          </div>
+        </dl>
+
+        <section class="comment-block">
+          <h3>Описание действия</h3>
+          <p id="stepComment"></p>
+        </section>
+      </aside>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
