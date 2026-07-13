@@ -1,5 +1,7 @@
 # TimeLiner Gantt MVP
 
+Current Russian technical documentation: [docs/TECHNICAL_DOCUMENTATION.md](docs/TECHNICAL_DOCUMENTATION.md).
+
 Internal server web app for project schedules with a task table, Gantt timeline,
 drafts, immutable versions, and static version comparison.
 
