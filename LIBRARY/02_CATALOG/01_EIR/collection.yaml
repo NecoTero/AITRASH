@@ -1,0 +1,9 @@
+collection_id: COL-EIR
+title: Требования заказчика к информационному моделированию
+owner: BIM Department
+approver: User
+current_release: 
+ruleset:
+  - POL-DATA-LIFECYCLE@1.0
+  - POL-VERSIONING@1.1
+  - COL-EIR-RULES@2.0

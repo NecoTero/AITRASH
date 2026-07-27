@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "mode": "full",
+  "source_root": "../../../LIBRARY/02_CATALOG/02_PRESALE_Поздняково/01_ARTIFACTS/МКД2",
+  "output_root": "../09_outputs",
+  "diagnostics_subdir": "_diagnostics",
+  "pilot_subdir": "_pilot_wip",
+  "artboard_size_pt": 1200,
+  "scale_area_constant_pt2": 777500,
+  "scale_max_side_target_pt": 1070,
+  "bounds_tolerance_pt": 0.02,
+  "scale_tie_epsilon": 1e-9,
+  "stroke_width_pt": 0.75,
+  "stroke_tolerance_pt": 0.0001,
+  "png_scale_percent": 100,
+  "pdf_compatible": true,
+  "output_prefix": "х",
+  "allowed_scales": [
+    100,
+    110,
+    120,
+    150,
+    170,
+    200
+  ],
+  "manual_override_scales": [
+    140
+  ],
+  "start_index": 0,
+  "max_files": 0,
+  "pilot_files": [
+    {
+      "path": "Корпус 2.3/POZD_WEB_K2-3_s9_et5_5.ai",
+      "expected_scale": 100,
+      "selection_note": "Горизонтальная, сложный контур, террасы"
+    },
+    {
+      "path": "Корпус 2.1/POZD_WEB_K2-1_s3_et1_4.ai",
+      "expected_scale": 110,
+      "selection_note": "Вертикальная, балконы"
+    },
+    {
+      "path": "Корпус 2.2/POZD_WEB_K2-2_s6_et2_6.ai",
+      "expected_scale": 120,
+      "selection_note": "Горизонтальная, выносная марка"
+    },
+    {
+      "path": "Корпус 2.3/POZD_WEB_K2-3_s8_et3_3.ai",
+      "expected_scale": 150,
+      "selection_note": "Вертикальная"
+    },
+    {
+      "path": "Корпус 2.1/POZD_WEB_K2-1_s2_et2,6_2.ai",
+      "expected_scale": 200,
+      "selection_note": "Компактная, близкая к квадратной"
+    },
+    {
+      "path": "Корпус 2.3/POZD_WEB_K2-3_s10_et6_6.ai",
+      "expected_scale": 100,
+      "selection_note": "Вертикальная, сложный контур, крупная терраса"
+    },
+    {
+      "path": "Корпус 2.2/POZD_WEB_K2-2_s6_et2,6_3.ai",
+      "expected_scale": 170,
+      "selection_note": "Близкая к квадратной, выступающие дверь и марка"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+status=OK
+illustrator_version=29.8.1
+source_page_items=5709
+reopened_page_items=5709
+source_top_layers=15
+reopened_top_layers=15
+ruler_units_pixels=true
+artboards=1
+artboard_width=1200
+artboard_height=1200
+bounds_match=true
+layer_signature_match=true
