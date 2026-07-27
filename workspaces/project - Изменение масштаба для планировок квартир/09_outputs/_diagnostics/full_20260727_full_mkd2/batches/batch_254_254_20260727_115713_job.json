@@ -1,0 +1,24 @@
+﻿{
+    "schema_version":  1,
+    "run_id":  "20260727_full_mkd2",
+    "batch_id":  "254_254_20260727_115713",
+    "created_at":  "2026-07-27T11:57:13",
+    "batch_report":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2\\batches\\batch_254_254_20260727_115713_report.csv",
+    "entries":  [
+                    {
+                        "batch_id":  "254_254_20260727_115713",
+                        "index":  254,
+                        "attempt":  1,
+                        "corpus":  "Корпус 2.3",
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s12_et1_3.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s12_et1_3.ai",
+                        "reference_png":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s12_et1_3.png",
+                        "source_size_bytes":  305701,
+                        "source_sha256_before":  "6b30067c6704f1d090107d53ad79f94a92dfb70fa47c635665c14931f260e35c",
+                        "source_hash_preverified":  true,
+                        "output_dir":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3",
+                        "staging_dir":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2\\staging\\254_254_20260727_115713",
+                        "audit_json":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2\\details\\254_POZD_WEB_K2-3_s12_et1_3_attempt1.json"
+                    }
+                ]
+}

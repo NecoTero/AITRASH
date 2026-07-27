@@ -1,0 +1,8 @@
+ENHANCED_REVERIFY_PAUSE_REQUESTED
+D:\AI\AITRASH\workspaces\project - Изменение масштаба для планировок квартир\04_processes\verify_full_mkd2.ps1:687 знак
+:13
++             throw "ENHANCED_REVERIFY_PAUSE_REQUESTED"
++             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (ENHANCED_REVERIFY_PAUSE_REQUESTED:String) [], RuntimeException
+    + FullyQualifiedErrorId : ENHANCED_REVERIFY_PAUSE_REQUESTED
+ 

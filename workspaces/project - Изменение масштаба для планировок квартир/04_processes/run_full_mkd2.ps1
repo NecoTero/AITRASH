@@ -48,6 +48,50 @@ function Write-Utf8Csv {
     [System.IO.File]::WriteAllLines($Path, $lines, $encoding)
 }
 
+function Assert-SingleIllustratorProcess {
+    param(
+        [Parameter(Mandatory = $true)]
+        [int]$ExpectedPid
+    )
+
+    $processes = @(Get-Process -Name Illustrator -ErrorAction Stop)
+    if ($processes.Count -ne 1) {
+        throw "Ожидался ровно один Illustrator PID $ExpectedPid, найдено: " +
+            (($processes | Select-Object -ExpandProperty Id) -join ', ')
+    }
+    $process = $processes[0]
+    if ($process.Id -ne $ExpectedPid) {
+        throw "PID Illustrator изменился: $ExpectedPid -> $($process.Id)"
+    }
+    if (-not $process.Responding) {
+        throw "Illustrator PID $ExpectedPid не отвечает."
+    }
+    return $process
+}
+
+function Get-ExistingIllustratorApplication {
+    param(
+        [Parameter(Mandatory = $true)]
+        [int]$ExpectedPid
+    )
+
+    [void](Assert-SingleIllustratorProcess -ExpectedPid $ExpectedPid)
+    try {
+        $application = [Runtime.InteropServices.Marshal]::GetActiveObject(
+            'Illustrator.Application'
+        )
+    } catch {
+        throw "Не удалось подключиться к уже открытому Illustrator PID " +
+            "$ExpectedPid; создание нового экземпляра запрещено: " +
+            $_.Exception.Message
+    }
+    if (-not $application) {
+        throw "Активный COM-объект Illustrator PID $ExpectedPid не получен."
+    }
+    [void](Assert-SingleIllustratorProcess -ExpectedPid $ExpectedPid)
+    return $application
+}
+
 function Assert-ChildPath {
     param(
         [Parameter(Mandatory = $true)]
@@ -359,14 +403,27 @@ function Process-RunBatch {
     $outputRoot = Join-Path $Workspace "09_outputs\_full_wip\$RunIdValue"
     $manifestPath = Join-Path $diagnosticsRoot 'manifest.csv'
     $summaryPath = Join-Path $diagnosticsRoot 'summary.json'
+    $preflightSummaryPath = Join-Path $diagnosticsRoot 'preflight_summary.json'
     $scriptPath = Join-Path $PSScriptRoot 'presale_site_prepare.jsx'
     $activeJobPath = Join-Path $PSScriptRoot 'presale_site_job.json'
 
-    foreach ($requiredPath in @($manifestPath, $summaryPath, $scriptPath)) {
+    foreach ($requiredPath in @(
+        $manifestPath,
+        $summaryPath,
+        $preflightSummaryPath,
+        $scriptPath
+    )) {
         if (-not (Test-Path -LiteralPath $requiredPath -PathType Leaf)) {
             throw "Не найден обязательный файл: $requiredPath"
         }
     }
+    $preflightSummary = Get-Content -LiteralPath $preflightSummaryPath `
+        -Raw -Encoding UTF8 | ConvertFrom-Json
+    if ([string]$preflightSummary.run_id -ne $RunIdValue) {
+        throw "Preflight относится к другому run_id."
+    }
+    $expectedIllustratorPid = [int]$preflightSummary.same_session_pid
+    [void](Assert-SingleIllustratorProcess -ExpectedPid $expectedIllustratorPid)
     foreach ($directory in @($detailsRoot, $batchRoot, $stagingRoot, $outputRoot)) {
         Assert-ChildPath -Root $Workspace -Path $directory
         [System.IO.Directory]::CreateDirectory($directory) | Out-Null
@@ -470,11 +527,13 @@ function Process-RunBatch {
     $illustratorResult = ''
     $illustratorError = $null
     try {
-        $illustrator = New-Object -ComObject Illustrator.Application
+        $illustrator = Get-ExistingIllustratorApplication `
+            -ExpectedPid $expectedIllustratorPid
         $illustratorResult = [string]$illustrator.DoJavaScriptFile($scriptPath)
     } catch {
         $illustratorError = $_
     }
+    [void](Assert-SingleIllustratorProcess -ExpectedPid $expectedIllustratorPid)
 
     if (-not (Test-Path -LiteralPath $batchReportPath)) {
         if ($illustratorError) {
@@ -484,6 +543,26 @@ function Process-RunBatch {
     }
 
     $batchRows = @(Import-Csv -LiteralPath $batchReportPath -Encoding UTF8)
+    if ($batchRows.Count -ne $eligible.Count) {
+        throw "Batch report содержит $($batchRows.Count) строк вместо $($eligible.Count)."
+    }
+    $duplicateBatchIndices = @(
+        $batchRows |
+            Group-Object index |
+            Where-Object Count -ne 1
+    )
+    if ($duplicateBatchIndices.Count -ne 0) {
+        throw "Batch report содержит повторяющиеся индексы."
+    }
+    foreach ($eligibleRow in $eligible) {
+        if (-not (
+            $batchRows |
+                Where-Object { [int]$_.index -eq [int]$eligibleRow.index } |
+                Select-Object -First 1
+        )) {
+            throw "Batch report не содержит индекс $($eligibleRow.index)."
+        }
+    }
     foreach ($batchRow in $batchRows) {
         $manifestRow = $manifestRows | Where-Object {
             [int]$_.index -eq [int]$batchRow.index
@@ -496,6 +575,15 @@ function Process-RunBatch {
         $manifestRow.applied_scale_percent = [string]$batchRow.applied_scale_percent
         $manifestRow.audit_json = [string]$batchRow.audit_json
         $manifestRow.last_error = [string]$batchRow.comment
+        if ($manifestRow.PSObject.Properties['preflight_scale_percent'] -and
+            $manifestRow.preflight_scale_percent -and
+            [int]$manifestRow.preflight_scale_percent -ne
+                [int]$batchRow.applied_scale_percent) {
+            throw "Масштаб обработки не совпал с независимым preflight: " +
+                "$($manifestRow.source_relpath), ожидалось " +
+                "$($manifestRow.preflight_scale_percent)%, получено " +
+                "$($batchRow.applied_scale_percent)%."
+        }
         $sourceHashAfter = (
             Get-FileHash -LiteralPath $manifestRow.source_ai -Algorithm SHA256
         ).Hash.ToLowerInvariant()
@@ -508,6 +596,20 @@ function Process-RunBatch {
         }
 
         if ($batchRow.status -eq 'OK') {
+            if (-not $batchRow.audit_json -or
+                -not (Test-Path -LiteralPath $batchRow.audit_json -PathType Leaf)) {
+                throw "Строка OK не имеет audit JSON: $($manifestRow.source_relpath)"
+            }
+            try {
+                $processAudit = Get-Content -LiteralPath $batchRow.audit_json `
+                    -Raw -Encoding UTF8 | ConvertFrom-Json
+                if ($processAudit.status -ne 'OK') {
+                    throw "Audit JSON не имеет статус OK."
+                }
+            } catch {
+                throw "Некорректный audit JSON для $($manifestRow.source_relpath): " +
+                    $_.Exception.Message
+            }
             foreach ($outputPath in @($batchRow.output_ai, $batchRow.output_png)) {
                 if (-not (Test-Path -LiteralPath $outputPath -PathType Leaf) -or
                     (Get-Item -LiteralPath $outputPath).Length -le 0) {
@@ -578,6 +680,13 @@ switch ($Stage) {
         Initialize-Run -Workspace $workspace -SourceRoot $sourceRoot -RunIdValue $RunId
     }
     'Process' {
+        $pauseRequest = Join-Path $workspace (
+            "09_outputs\_diagnostics\full_$RunId\" +
+            'processing_pause_requested.flag'
+        )
+        if (Test-Path -LiteralPath $pauseRequest -PathType Leaf) {
+            throw "PROCESSING_PAUSE_REQUESTED"
+        }
         Process-RunBatch `
             -Workspace $workspace `
             -RunIdValue $RunId `

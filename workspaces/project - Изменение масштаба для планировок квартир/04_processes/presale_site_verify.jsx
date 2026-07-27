@@ -1,7 +1,7 @@
 ﻿#target illustrator
 
 (function () {
-    var SCRIPT_VERSION = "1.0.0-independent";
+    var SCRIPT_VERSION = "1.1.0-independent-full-ancestry";
     var originalInteractionLevel = app.userInteractionLevel;
     var originalCoordinateSystem = app.coordinateSystem;
 
@@ -108,6 +108,254 @@
         }
     }
 
+    function safeLayerPath(item) {
+        var names = [];
+        var layer;
+        try {
+            layer = item.layer;
+            while (layer && layer.typename === "Layer") {
+                names.unshift(layer.name);
+                layer = layer.parent;
+            }
+            return names.join("/");
+        } catch (error) {
+            return "";
+        }
+    }
+
+    function requiredTypename(value, label) {
+        var typename;
+        if (!value) {
+            fail("Отсутствует DOM-узел: " + label);
+        }
+        try {
+            typename = value.typename;
+        } catch (error) {
+            fail(
+                "Не удалось прочитать typename " + label + ": " +
+                error.message
+            );
+        }
+        if (!typename) {
+            fail("Пустой typename: " + label);
+        }
+        return String(typename);
+    }
+
+    function tryZOrderPosition(value) {
+        var raw;
+        var parsed;
+        try {
+            raw = value.zOrderPosition;
+        } catch (error) {
+            return null;
+        }
+        if (raw === null || typeof raw === "undefined" || raw === "") {
+            return null;
+        }
+        parsed = Number(raw);
+        if (!isFinite(parsed) ||
+                parsed < 0 ||
+                Math.floor(parsed) !== parsed) {
+            return null;
+        }
+        return parsed;
+    }
+
+    function sameDomObject(left, right) {
+        if (!left || !right) {
+            return false;
+        }
+        try {
+            if (left === right) {
+                return true;
+            }
+        } catch (strictError) {
+        }
+        try {
+            return left == right;
+        } catch (looseError) {
+            return false;
+        }
+    }
+
+    function immediateSiblingIndex(node, knownZOrder) {
+        var zOrder = (
+            knownZOrder !== null &&
+            typeof knownZOrder !== "undefined"
+        ) ? knownZOrder : tryZOrderPosition(node);
+        var parent;
+        var nodeType;
+        var parentType;
+        var collection;
+        var i;
+        var candidate;
+        var candidateParent;
+        var directIndex = 0;
+
+        if (zOrder !== null) {
+            return zOrder;
+        }
+        try {
+            parent = node.parent;
+        } catch (parentError) {
+            fail(
+                "Не удалось прочитать parent DOM-узла: " +
+                parentError.message
+            );
+        }
+        nodeType = requiredTypename(node, "sibling node");
+        parentType = requiredTypename(parent, "sibling parent");
+        try {
+            if (nodeType === "Layer") {
+                collection = parent.layers;
+            } else if (parentType === "CompoundPathItem") {
+                collection = parent.pathItems;
+            } else {
+                collection = parent.pageItems;
+            }
+        } catch (collectionError) {
+            fail(
+                "Не удалось получить коллекцию siblings: " +
+                collectionError.message
+            );
+        }
+        if (!collection) {
+            fail("Коллекция siblings недоступна для " + nodeType);
+        }
+        for (i = 0; i < collection.length; i += 1) {
+            candidate = collection[i];
+            try {
+                candidateParent = candidate.parent;
+            } catch (candidateParentError) {
+                fail(
+                    "Не удалось прочитать parent sibling: " +
+                    candidateParentError.message
+                );
+            }
+            if (!sameDomObject(candidateParent, parent)) {
+                continue;
+            }
+            if (sameDomObject(candidate, node)) {
+                return directIndex;
+            }
+            directIndex += 1;
+        }
+        fail(
+            "DOM-узел не найден среди непосредственных siblings: " +
+            nodeType
+        );
+    }
+
+    function tryUuid(value) {
+        var uuid;
+        try {
+            uuid = value.uuid;
+        } catch (error) {
+            return "";
+        }
+        return uuid ? String(uuid) : "";
+    }
+
+    function buildAncestryCache(document) {
+        var cache = {
+            page_paths: {},
+            layer_nodes: [],
+            layer_paths: []
+        };
+        var documentPath = [["Document", "", -1, null]];
+
+        function walkLayers(layers, parentPath) {
+            var i;
+            var layer;
+            var typename;
+            var zOrder;
+            var path;
+            for (i = 0; i < layers.length; i += 1) {
+                layer = layers[i];
+                typename = requiredTypename(layer, "layer ancestry node");
+                zOrder = tryZOrderPosition(layer);
+                path = parentPath.concat([[
+                    typename,
+                    safeName(layer),
+                    immediateSiblingIndex(layer, zOrder),
+                    zOrder
+                ]]);
+                cache.layer_nodes.push(layer);
+                cache.layer_paths.push(path);
+                if (layer.layers && layer.layers.length) {
+                    walkLayers(layer.layers, path);
+                }
+            }
+        }
+
+        walkLayers(document.layers, documentPath);
+        return cache;
+    }
+
+    function cachedLayerAncestryPath(layer, cache) {
+        var i;
+        for (i = 0; i < cache.layer_nodes.length; i += 1) {
+            if (sameDomObject(cache.layer_nodes[i], layer)) {
+                return cache.layer_paths[i];
+            }
+        }
+        fail("Layer не найден в ancestry cache: " + safeName(layer));
+    }
+
+    function itemAncestryPath(item, cache) {
+        function buildPath(current, guard) {
+            var typename = requiredTypename(current, "ancestry node");
+            var uuid;
+            var cacheKey;
+            var parent;
+            var parentPath;
+            var zOrder;
+            var path;
+
+            if (guard > 256) {
+                fail("Слишком глубокая или циклическая parent chain.");
+            }
+            if (typename === "Document") {
+                return [["Document", "", -1, null]];
+            }
+            if (typename === "Layer") {
+                return cachedLayerAncestryPath(current, cache);
+            }
+
+            uuid = tryUuid(current);
+            cacheKey = uuid ? "u:" + uuid : "";
+            if (cacheKey && cache.page_paths[cacheKey]) {
+                return cache.page_paths[cacheKey];
+            }
+            try {
+                parent = current.parent;
+            } catch (parentError) {
+                fail(
+                    "Не удалось пройти parent chain: " +
+                    parentError.message
+                );
+            }
+            if (!parent || sameDomObject(parent, current)) {
+                fail("Некорректная parent chain для " + typename);
+            }
+            parentPath = buildPath(parent, guard + 1);
+            zOrder = tryZOrderPosition(current);
+            path = parentPath.concat([[
+                typename,
+                safeName(current),
+                immediateSiblingIndex(current, zOrder),
+                zOrder
+            ]]);
+            if (cacheKey) {
+                cache.page_paths[cacheKey] = path;
+            }
+            return path;
+        }
+
+        return buildPath(item, 0);
+    }
+
     function snapshotLayers(document) {
         var audit = [];
 
@@ -150,29 +398,42 @@
 
     function snapshotItems(document) {
         var audit = [];
+        var ancestryCache = buildAncestryCache(document);
         var i;
+        var j;
         var item;
+        var ancestry;
+        var leafNode;
+        var parentNode;
+        var layerNames;
         var parentType;
         var parentName;
         for (i = 0; i < document.pageItems.length; i += 1) {
             item = document.pageItems[i];
-            try {
-                parentType = item.parent ? item.parent.typename : "";
-            } catch (parentError) {
-                parentType = "";
+            ancestry = itemAncestryPath(item, ancestryCache);
+            if (ancestry.length < 2) {
+                fail("Недостаточная ancestry chain для page item " + i);
             }
-            try {
-                parentName = item.parent ? safeName(item.parent) : "";
-            } catch (parentNameError) {
-                parentName = "";
+            leafNode = ancestry[ancestry.length - 1];
+            parentNode = ancestry[ancestry.length - 2];
+            parentType = parentNode[0];
+            parentName = parentNode[1];
+            layerNames = [];
+            for (j = 0; j < ancestry.length; j += 1) {
+                if (ancestry[j][0] === "Layer") {
+                    layerNames.push(ancestry[j][1]);
+                }
             }
             audit.push({
                 index: i,
-                typename: item.typename,
-                name: safeName(item),
-                layer: safeLayerName(item),
+                typename: leafNode[0],
+                name: leafNode[1],
+                layer: layerNames.length ?
+                    layerNames[layerNames.length - 1] : "",
+                layer_path: layerNames.join("/"),
                 parent_typename: parentType,
                 parent_name: parentName,
+                full_ancestry_path: ancestry,
                 hidden: item.hidden,
                 locked: item.locked
             });
@@ -181,19 +442,21 @@
     }
 
     function itemStructureSignature(itemAudit) {
-        var parts = [];
+        var canonical = [];
         var i;
         for (i = 0; i < itemAudit.length; i += 1) {
-            parts.push(
-                itemAudit[i].index + "|" +
-                itemAudit[i].typename + "|" +
-                itemAudit[i].name + "|" +
-                itemAudit[i].layer + "|" +
-                itemAudit[i].parent_typename + "|" +
-                itemAudit[i].parent_name
-            );
+            canonical.push([
+                itemAudit[i].index,
+                itemAudit[i].typename,
+                itemAudit[i].name,
+                itemAudit[i].layer,
+                itemAudit[i].layer_path,
+                itemAudit[i].parent_typename,
+                itemAudit[i].parent_name,
+                itemAudit[i].full_ancestry_path
+            ]);
         }
-        return parts.join("\n");
+        return jsonStringify(canonical);
     }
 
     function itemStateSignature(itemAudit) {
@@ -548,6 +811,9 @@
             row.item_structure_match =
                 itemStructureSignature(sourceItems) ===
                     itemStructureSignature(outputItems) ? "true" : "false";
+            audit.item_structure_basis = "full_ancestry_path";
+            audit.full_ancestry_path_match =
+                row.item_structure_match === "true";
             row.item_state_match =
                 itemStateSignature(sourceItems) ===
                     itemStateSignature(outputItems) ? "true" : "false";
@@ -604,16 +870,20 @@
                 try {
                     outputDocument.close(SaveOptions.DONOTSAVECHANGES);
                 } catch (outputCloseError) {
+                    row.status = "ERROR";
                     row.comment += " | Ошибка закрытия output AI: " +
                         errorText(outputCloseError);
+                    audit.status = "ERROR";
                 }
             }
             if (sourceDocument) {
                 try {
                     sourceDocument.close(SaveOptions.DONOTSAVECHANGES);
                 } catch (sourceCloseError) {
+                    row.status = "ERROR";
                     row.comment += " | Ошибка закрытия source AI: " +
                         errorText(sourceCloseError);
+                    audit.status = "ERROR";
                 }
             }
             if (!auditFile.exists) {
@@ -624,9 +894,15 @@
                         row.verify_audit = auditFile.fsName;
                     }
                 } catch (auditError) {
+                    row.status = "ERROR";
                     row.comment += " | Не удалось записать verify audit: " +
                         errorText(auditError);
                 }
+            }
+            if (!auditFile.exists) {
+                row.status = "ERROR";
+                row.verify_audit = "";
+                row.comment += " | Verify audit отсутствует.";
             }
         }
 

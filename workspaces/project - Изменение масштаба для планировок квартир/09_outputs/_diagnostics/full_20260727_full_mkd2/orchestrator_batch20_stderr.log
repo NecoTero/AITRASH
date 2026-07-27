@@ -1,0 +1,7 @@
+PROCESSING_PAUSE_REQUESTED
+D:\AI\AITRASH\workspaces\project - Изменение масштаба для планировок квартир\04_processes\run_full_mkd2.ps1:629 знак:13
++             throw "PROCESSING_PAUSE_REQUESTED"
++             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (PROCESSING_PAUSE_REQUESTED:String) [], RuntimeException
+    + FullyQualifiedErrorId : PROCESSING_PAUSE_REQUESTED
+ 

@@ -1,0 +1,18 @@
+
+Name                           Value                                                                                   
+----                           -----                                                                                   
+schema_version                 1                                                                                       
+run_id                         20260727_full_mkd2                                                                      
+status                         completed                                                                               
+started_at                     2026-07-27T16:24:28                                                                     
+updated_at                     2026-07-27T16:33:06                                                                     
+illustrator_pid                8756                                                                                    
+required_indices               {38, 68, 164, 168...}                                                                   
+completed_indices              {38, 68, 164, 168...}                                                                   
+completed                      7                                                                                       
+remaining                      0                                                                                       
+quarantine_root                D:\AI\AITRASH\workspaces\project - Изменение масштаба для планировок квартир\09_outpu...
+manifest_backup                D:\AI\AITRASH\workspaces\project - Изменение масштаба для планировок квартир\09_outpu...
+error                                                                                                                  
+
+

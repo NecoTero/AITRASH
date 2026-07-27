@@ -1,0 +1,148 @@
+﻿{
+    "schema_version":  1,
+    "run_id":  "20260727_full_mkd2",
+    "created_at":  "2026-07-27T11:30:07",
+    "workspace":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир",
+    "source_root":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2",
+    "manifest":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2\\manifest.csv",
+    "output_root":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2",
+    "diagnostics_root":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2",
+    "stage":  "verifying",
+    "inventory":  [
+                      {
+                          "corpus":  "Корпус 2.1",
+                          "ai_count":  157,
+                          "png_count":  157,
+                          "missing_png":  0,
+                          "orphan_png":  0
+                      },
+                      {
+                          "corpus":  "Корпус 2.2",
+                          "ai_count":  53,
+                          "png_count":  53,
+                          "missing_png":  0,
+                          "orphan_png":  0
+                      },
+                      {
+                          "corpus":  "Корпус 2.3",
+                          "ai_count":  178,
+                          "png_count":  178,
+                          "missing_png":  0,
+                          "orphan_png":  0
+                      }
+                  ],
+    "total_ai":  388,
+    "total_reference_png":  388,
+    "overrides":  0,
+    "excluded_nested_or_other_ai":  9,
+    "pending":  0,
+    "ok":  152,
+    "error":  0,
+    "verified":  152,
+    "preflight":  {
+                      "schema_version":  1,
+                      "run_id":  "20260727_full_mkd2",
+                      "updated_at":  "2026-07-27T11:53:38",
+                      "illustrator_version":  "28.0.0",
+                      "same_session_pid":  8756,
+                      "analyzed_ok":  388,
+                      "errors":  0,
+                      "pending":  0,
+                      "distribution":  [
+                                           {
+                                               "corpus":  "Корпус 2.1",
+                                               "scale_percent":  110,
+                                               "count":  3
+                                           },
+                                           {
+                                               "corpus":  "Корпус 2.1",
+                                               "scale_percent":  120,
+                                               "count":  17
+                                           },
+                                           {
+                                               "corpus":  "Корпус 2.1",
+                                               "scale_percent":  150,
+                                               "count":  12
+                                           },
+                                           {
+                                               "corpus":  "Корпус 2.1",
+                                               "scale_percent":  170,
+                                               "count":  87
+                                           },
+                                           {
+                                               "corpus":  "Корпус 2.1",
+                                               "scale_percent":  200,
+                                               "count":  38
+                                           },
+                                           {
+                                               "corpus":  "Корпус 2.2",
+                                               "scale_percent":  110,
+                                               "count":  3
+                                           },
+                                           {
+                                               "corpus":  "Корпус 2.2",
+                                               "scale_percent":  120,
+                                               "count":  11
+                                           },
+                                           {
+                                               "corpus":  "Корпус 2.2",
+                                               "scale_percent":  150,
+                                               "count":  2
+                                           },
+                                           {
+                                               "corpus":  "Корпус 2.2",
+                                               "scale_percent":  170,
+                                               "count":  27
+                                           },
+                                           {
+                                               "corpus":  "Корпус 2.2",
+                                               "scale_percent":  200,
+                                               "count":  10
+                                           },
+                                           {
+                                               "corpus":  "Корпус 2.3",
+                                               "scale_percent":  100,
+                                               "count":  2
+                                           },
+                                           {
+                                               "corpus":  "Корпус 2.3",
+                                               "scale_percent":  110,
+                                               "count":  11
+                                           },
+                                           {
+                                               "corpus":  "Корпус 2.3",
+                                               "scale_percent":  120,
+                                               "count":  18
+                                           },
+                                           {
+                                               "corpus":  "Корпус 2.3",
+                                               "scale_percent":  150,
+                                               "count":  29
+                                           },
+                                           {
+                                               "corpus":  "Корпус 2.3",
+                                               "scale_percent":  170,
+                                               "count":  44
+                                           },
+                                           {
+                                               "corpus":  "Корпус 2.3",
+                                               "scale_percent":  200,
+                                               "count":  74
+                                           }
+                                       ],
+                      "nested_layer_documents":  0,
+                      "empty_layer_documents":  2,
+                      "duplicate_sibling_layer_documents":  0,
+                      "accepted_distribution":  true,
+                      "acceptance_errors":  [
+
+                                            ],
+                      "report":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2\\preflight_report.csv"
+                  },
+    "processing_completed_at":  "2026-07-27T16:23:44",
+    "illustrator_pid":  8756,
+    "last_batch":  "384_384_20260727_163133",
+    "processed_ok":  236,
+    "last_verify_batch":  "127_151_20260727_171611",
+    "updated_at":  "2026-07-27T17:21:07"
+}

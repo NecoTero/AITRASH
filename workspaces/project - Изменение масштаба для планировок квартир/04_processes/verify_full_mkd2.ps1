@@ -52,6 +52,50 @@ function Write-Utf8Csv {
     )
 }
 
+function Assert-SingleIllustratorProcess {
+    param(
+        [Parameter(Mandatory = $true)]
+        [int]$ExpectedPid
+    )
+
+    $processes = @(Get-Process -Name Illustrator -ErrorAction Stop)
+    if ($processes.Count -ne 1) {
+        throw "Ожидался ровно один Illustrator PID $ExpectedPid, найдено: " +
+            (($processes | Select-Object -ExpandProperty Id) -join ', ')
+    }
+    $process = $processes[0]
+    if ($process.Id -ne $ExpectedPid) {
+        throw "PID Illustrator изменился: $ExpectedPid -> $($process.Id)"
+    }
+    if (-not $process.Responding) {
+        throw "Illustrator PID $ExpectedPid не отвечает."
+    }
+    return $process
+}
+
+function Get-ExistingIllustratorApplication {
+    param(
+        [Parameter(Mandatory = $true)]
+        [int]$ExpectedPid
+    )
+
+    [void](Assert-SingleIllustratorProcess -ExpectedPid $ExpectedPid)
+    try {
+        $application = [Runtime.InteropServices.Marshal]::GetActiveObject(
+            'Illustrator.Application'
+        )
+    } catch {
+        throw "Не удалось подключиться к уже открытому Illustrator PID " +
+            "$ExpectedPid; создание нового экземпляра запрещено: " +
+            $_.Exception.Message
+    }
+    if (-not $application) {
+        throw "Активный COM-объект Illustrator PID $ExpectedPid не получен."
+    }
+    [void](Assert-SingleIllustratorProcess -ExpectedPid $ExpectedPid)
+    return $application
+}
+
 function Test-PdfCompatibleAi {
     param(
         [Parameter(Mandatory = $true)]
@@ -284,17 +328,30 @@ function Invoke-VerifyBatch {
     $diagnosticsRoot = Join-Path $Workspace "09_outputs\_diagnostics\full_$RunIdValue"
     $manifestPath = Join-Path $diagnosticsRoot 'manifest.csv'
     $summaryPath = Join-Path $diagnosticsRoot 'summary.json'
+    $preflightSummaryPath = Join-Path $diagnosticsRoot 'preflight_summary.json'
     $verifyDetailsRoot = Join-Path $diagnosticsRoot 'verify_details'
     $verifyBatchRoot = Join-Path $diagnosticsRoot 'verify_batches'
     $verifyReportPath = Join-Path $diagnosticsRoot 'verify_report.csv'
     $scriptPath = Join-Path $PSScriptRoot 'presale_site_verify.jsx'
     $activeJobPath = Join-Path $PSScriptRoot 'presale_site_verify_job.json'
 
-    foreach ($required in @($manifestPath, $summaryPath, $scriptPath)) {
+    foreach ($required in @(
+        $manifestPath,
+        $summaryPath,
+        $preflightSummaryPath,
+        $scriptPath
+    )) {
         if (-not (Test-Path -LiteralPath $required -PathType Leaf)) {
             throw "Не найден обязательный файл: $required"
         }
     }
+    $preflightSummary = Get-Content -LiteralPath $preflightSummaryPath `
+        -Raw -Encoding UTF8 | ConvertFrom-Json
+    if ([string]$preflightSummary.run_id -ne $RunIdValue) {
+        throw "Preflight относится к другому run_id."
+    }
+    $expectedIllustratorPid = [int]$preflightSummary.same_session_pid
+    [void](Assert-SingleIllustratorProcess -ExpectedPid $expectedIllustratorPid)
     foreach ($directory in @($verifyDetailsRoot, $verifyBatchRoot)) {
         [System.IO.Directory]::CreateDirectory($directory) | Out-Null
     }
@@ -302,6 +359,12 @@ function Invoke-VerifyBatch {
     $manifestRows = @(Import-Csv -LiteralPath $manifestPath -Encoding UTF8)
     if ($manifestRows.Count -ne 388) {
         throw "Manifest должен содержать 388 строк."
+    }
+    foreach ($manifestRow in $manifestRows) {
+        if (-not $manifestRow.PSObject.Properties['verify_attempts']) {
+            $manifestRow |
+                Add-Member -NotePropertyName verify_attempts -NotePropertyValue '0'
+        }
     }
     $eligible = @(
         $manifestRows |
@@ -362,8 +425,11 @@ function Invoke-VerifyBatch {
         $sourceStem = [System.IO.Path]::GetFileNameWithoutExtension(
             [string]$manifestRow.source_ai
         )
+        $verifyAttempt = [int]$manifestRow.verify_attempts + 1
         $verifyAuditPath = Join-Path $verifyDetailsRoot (
-            '{0:D3}_{1}_verify.json' -f [int]$manifestRow.index, $sourceStem
+            '{0:D3}_{1}_verify_attempt{2}.json' -f (
+                [int]$manifestRow.index
+            ), $sourceStem, $verifyAttempt
         )
         if (Test-Path -LiteralPath $verifyAuditPath) {
             throw "Verify audit уже существует: $verifyAuditPath"
@@ -376,6 +442,7 @@ function Invoke-VerifyBatch {
             output_ai = [string]$manifestRow.output_ai
             output_png = [string]$manifestRow.output_png
             expected_scale_percent = [int]$manifestRow.applied_scale_percent
+            verify_attempt = $verifyAttempt
             verify_audit = $verifyAuditPath
         })
     }
@@ -399,11 +466,13 @@ function Invoke-VerifyBatch {
 
     $illustratorError = $null
     try {
-        $illustrator = New-Object -ComObject Illustrator.Application
+        $illustrator = Get-ExistingIllustratorApplication `
+            -ExpectedPid $expectedIllustratorPid
         [void]$illustrator.DoJavaScriptFile($scriptPath)
     } catch {
         $illustratorError = $_
     }
+    [void](Assert-SingleIllustratorProcess -ExpectedPid $expectedIllustratorPid)
 
     if (-not (Test-Path -LiteralPath $illustratorReportPath)) {
         if ($illustratorError) {
@@ -415,6 +484,26 @@ function Invoke-VerifyBatch {
     $illustratorRows = @(
         Import-Csv -LiteralPath $illustratorReportPath -Encoding UTF8
     )
+    if ($illustratorRows.Count -ne $eligible.Count) {
+        throw "Verify report содержит $($illustratorRows.Count) строк вместо $($eligible.Count)."
+    }
+    $duplicateVerifyIndices = @(
+        $illustratorRows |
+            Group-Object index |
+            Where-Object Count -ne 1
+    )
+    if ($duplicateVerifyIndices.Count -ne 0) {
+        throw "Verify report содержит повторяющиеся индексы."
+    }
+    foreach ($eligibleRow in $eligible) {
+        if (-not (
+            $illustratorRows |
+                Where-Object { [int]$_.index -eq [int]$eligibleRow.index } |
+                Select-Object -First 1
+        )) {
+            throw "Verify report не содержит индекс $($eligibleRow.index)."
+        }
+    }
     $combinedRows = New-Object System.Collections.Generic.List[object]
     foreach ($illustratorRow in $illustratorRows) {
         $manifestRow = $manifestRows | Where-Object {
@@ -423,10 +512,28 @@ function Invoke-VerifyBatch {
         if (-not $manifestRow) {
             throw "Verify report содержит неизвестный индекс: $($illustratorRow.index)"
         }
+        $jobEntry = $jobEntries |
+            Where-Object { [int]$_.index -eq [int]$manifestRow.index } |
+            Select-Object -First 1
+        $manifestRow.verify_attempts = [string]$jobEntry.verify_attempt
 
         $errors = New-Object System.Collections.Generic.List[string]
         if ($illustratorRow.status -ne 'OK') {
             $errors.Add("Illustrator: $($illustratorRow.comment)")
+        }
+        if (-not $illustratorRow.verify_audit -or
+            -not (Test-Path -LiteralPath $illustratorRow.verify_audit -PathType Leaf)) {
+            $errors.Add('Verify audit отсутствует.')
+        } else {
+            try {
+                $verifyAudit = Get-Content -LiteralPath $illustratorRow.verify_audit `
+                    -Raw -Encoding UTF8 | ConvertFrom-Json
+                if ($verifyAudit.status -ne 'OK') {
+                    $errors.Add('Verify audit не имеет статус OK.')
+                }
+            } catch {
+                $errors.Add("Verify audit не читается: $($_.Exception.Message)")
+            }
         }
 
         $pngInspection = $null
@@ -572,6 +679,13 @@ $workspace = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 
 switch ($Stage) {
     'Verify' {
+        $pauseRequest = Join-Path $workspace (
+            "09_outputs\_diagnostics\full_$RunId\" +
+            'enhanced_reverify_pause_requested.flag'
+        )
+        if (Test-Path -LiteralPath $pauseRequest -PathType Leaf) {
+            throw "ENHANCED_REVERIFY_PAUSE_REQUESTED"
+        }
         Invoke-VerifyBatch `
             -Workspace $workspace `
             -RunIdValue $RunId `

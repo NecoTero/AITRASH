@@ -1,0 +1,214 @@
+﻿{
+    "schema_version":  1,
+    "run_id":  "20260727_full_mkd2",
+    "batch_id":  "215_235_20260727_144422",
+    "created_at":  "2026-07-27T14:44:22",
+    "batch_report":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2\\verify_batches\\verify_215_235_20260727_144422_illustrator.csv",
+    "artboard_size_pt":  1200,
+    "bounds_tolerance_pt":  0.02,
+    "stroke_width_pt":  0.75,
+    "stroke_tolerance_pt":  0.0001,
+    "output_prefix":  "х",
+    "entries":  [
+                    {
+                        "index":  215,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s10_et2_3.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s10_et2_3.ai",
+                        "output_ai":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х170_POZD_WEB_K2-3_s10_et2_3.ai",
+                        "output_png":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х170_POZD_WEB_K2-3_s10_et2_3.png",
+                        "expected_scale_percent":  170,
+                        "verify_attempt":  1,
+                        "verify_audit":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2\\verify_details\\215_POZD_WEB_K2-3_s10_et2_3_verify_attempt1.json"
+                    },
+                    {
+                        "index":  216,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s10_et2_4.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s10_et2_4.ai",
+                        "output_ai":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х170_POZD_WEB_K2-3_s10_et2_4.ai",
+                        "output_png":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х170_POZD_WEB_K2-3_s10_et2_4.png",
+                        "expected_scale_percent":  170,
+                        "verify_attempt":  1,
+                        "verify_audit":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2\\verify_details\\216_POZD_WEB_K2-3_s10_et2_4_verify_attempt1.json"
+                    },
+                    {
+                        "index":  217,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s10_et2_5.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s10_et2_5.ai",
+                        "output_ai":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х120_POZD_WEB_K2-3_s10_et2_5.ai",
+                        "output_png":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х120_POZD_WEB_K2-3_s10_et2_5.png",
+                        "expected_scale_percent":  120,
+                        "verify_attempt":  1,
+                        "verify_audit":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2\\verify_details\\217_POZD_WEB_K2-3_s10_et2_5_verify_attempt1.json"
+                    },
+                    {
+                        "index":  218,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s10_et2_6.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s10_et2_6.ai",
+                        "output_ai":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х120_POZD_WEB_K2-3_s10_et2_6.ai",
+                        "output_png":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х120_POZD_WEB_K2-3_s10_et2_6.png",
+                        "expected_scale_percent":  120,
+                        "verify_attempt":  1,
+                        "verify_audit":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2\\verify_details\\218_POZD_WEB_K2-3_s10_et2_6_verify_attempt1.json"
+                    },
+                    {
+                        "index":  219,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s10_et3,5_1.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s10_et3,5_1.ai",
+                        "output_ai":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х200_POZD_WEB_K2-3_s10_et3,5_1.ai",
+                        "output_png":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х200_POZD_WEB_K2-3_s10_et3,5_1.png",
+                        "expected_scale_percent":  200,
+                        "verify_attempt":  1,
+                        "verify_audit":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2\\verify_details\\219_POZD_WEB_K2-3_s10_et3,5_1_verify_attempt1.json"
+                    },
+                    {
+                        "index":  220,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s10_et3,5_2.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s10_et3,5_2.ai",
+                        "output_ai":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х200_POZD_WEB_K2-3_s10_et3,5_2.ai",
+                        "output_png":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х200_POZD_WEB_K2-3_s10_et3,5_2.png",
+                        "expected_scale_percent":  200,
+                        "verify_attempt":  1,
+                        "verify_audit":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2\\verify_details\\220_POZD_WEB_K2-3_s10_et3,5_2_verify_attempt1.json"
+                    },
+                    {
+                        "index":  221,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s10_et3,5_4.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s10_et3,5_4.ai",
+                        "output_ai":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х170_POZD_WEB_K2-3_s10_et3,5_4.ai",
+                        "output_png":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х170_POZD_WEB_K2-3_s10_et3,5_4.png",
+                        "expected_scale_percent":  170,
+                        "verify_attempt":  1,
+                        "verify_audit":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2\\verify_details\\221_POZD_WEB_K2-3_s10_et3,5_4_verify_attempt1.json"
+                    },
+                    {
+                        "index":  222,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s10_et3,5_6.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s10_et3,5_6.ai",
+                        "output_ai":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х120_POZD_WEB_K2-3_s10_et3,5_6.ai",
+                        "output_png":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х120_POZD_WEB_K2-3_s10_et3,5_6.png",
+                        "expected_scale_percent":  120,
+                        "verify_attempt":  1,
+                        "verify_audit":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2\\verify_details\\222_POZD_WEB_K2-3_s10_et3,5_6_verify_attempt1.json"
+                    },
+                    {
+                        "index":  223,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s10_et3_3.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s10_et3_3.ai",
+                        "output_ai":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х170_POZD_WEB_K2-3_s10_et3_3.ai",
+                        "output_png":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х170_POZD_WEB_K2-3_s10_et3_3.png",
+                        "expected_scale_percent":  170,
+                        "verify_attempt":  1,
+                        "verify_audit":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2\\verify_details\\223_POZD_WEB_K2-3_s10_et3_3_verify_attempt1.json"
+                    },
+                    {
+                        "index":  224,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s10_et4_1.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s10_et4_1.ai",
+                        "output_ai":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х170_POZD_WEB_K2-3_s10_et4_1.ai",
+                        "output_png":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х170_POZD_WEB_K2-3_s10_et4_1.png",
+                        "expected_scale_percent":  170,
+                        "verify_attempt":  1,
+                        "verify_audit":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2\\verify_details\\224_POZD_WEB_K2-3_s10_et4_1_verify_attempt1.json"
+                    },
+                    {
+                        "index":  225,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s10_et4_2.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s10_et4_2.ai",
+                        "output_ai":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х200_POZD_WEB_K2-3_s10_et4_2.ai",
+                        "output_png":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х200_POZD_WEB_K2-3_s10_et4_2.png",
+                        "expected_scale_percent":  200,
+                        "verify_attempt":  1,
+                        "verify_audit":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2\\verify_details\\225_POZD_WEB_K2-3_s10_et4_2_verify_attempt1.json"
+                    },
+                    {
+                        "index":  226,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s10_et4_3.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s10_et4_3.ai",
+                        "output_ai":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х170_POZD_WEB_K2-3_s10_et4_3.ai",
+                        "output_png":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х170_POZD_WEB_K2-3_s10_et4_3.png",
+                        "expected_scale_percent":  170,
+                        "verify_attempt":  1,
+                        "verify_audit":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2\\verify_details\\226_POZD_WEB_K2-3_s10_et4_3_verify_attempt1.json"
+                    },
+                    {
+                        "index":  227,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s10_et4_4.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s10_et4_4.ai",
+                        "output_ai":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х170_POZD_WEB_K2-3_s10_et4_4.ai",
+                        "output_png":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х170_POZD_WEB_K2-3_s10_et4_4.png",
+                        "expected_scale_percent":  170,
+                        "verify_attempt":  1,
+                        "verify_audit":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2\\verify_details\\227_POZD_WEB_K2-3_s10_et4_4_verify_attempt1.json"
+                    },
+                    {
+                        "index":  228,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s10_et4_5.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s10_et4_5.ai",
+                        "output_ai":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х120_POZD_WEB_K2-3_s10_et4_5.ai",
+                        "output_png":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х120_POZD_WEB_K2-3_s10_et4_5.png",
+                        "expected_scale_percent":  120,
+                        "verify_attempt":  1,
+                        "verify_audit":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2\\verify_details\\228_POZD_WEB_K2-3_s10_et4_5_verify_attempt1.json"
+                    },
+                    {
+                        "index":  229,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s10_et4_6.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s10_et4_6.ai",
+                        "output_ai":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х120_POZD_WEB_K2-3_s10_et4_6.ai",
+                        "output_png":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х120_POZD_WEB_K2-3_s10_et4_6.png",
+                        "expected_scale_percent":  120,
+                        "verify_attempt":  1,
+                        "verify_audit":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2\\verify_details\\229_POZD_WEB_K2-3_s10_et4_6_verify_attempt1.json"
+                    },
+                    {
+                        "index":  230,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s10_et6_3.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s10_et6_3.ai",
+                        "output_ai":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х170_POZD_WEB_K2-3_s10_et6_3.ai",
+                        "output_png":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х170_POZD_WEB_K2-3_s10_et6_3.png",
+                        "expected_scale_percent":  170,
+                        "verify_attempt":  1,
+                        "verify_audit":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2\\verify_details\\230_POZD_WEB_K2-3_s10_et6_3_verify_attempt1.json"
+                    },
+                    {
+                        "index":  231,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s10_et6_4.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s10_et6_4.ai",
+                        "output_ai":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х170_POZD_WEB_K2-3_s10_et6_4.ai",
+                        "output_png":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х170_POZD_WEB_K2-3_s10_et6_4.png",
+                        "expected_scale_percent":  170,
+                        "verify_attempt":  1,
+                        "verify_audit":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2\\verify_details\\231_POZD_WEB_K2-3_s10_et6_4_verify_attempt1.json"
+                    },
+                    {
+                        "index":  232,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s10_et6_5.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s10_et6_5.ai",
+                        "output_ai":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х200_POZD_WEB_K2-3_s10_et6_5.ai",
+                        "output_png":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х200_POZD_WEB_K2-3_s10_et6_5.png",
+                        "expected_scale_percent":  200,
+                        "verify_attempt":  1,
+                        "verify_audit":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2\\verify_details\\232_POZD_WEB_K2-3_s10_et6_5_verify_attempt1.json"
+                    },
+                    {
+                        "index":  234,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s11_et1_4.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s11_et1_4.ai",
+                        "output_ai":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х170_POZD_WEB_K2-3_s11_et1_4.ai",
+                        "output_png":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х170_POZD_WEB_K2-3_s11_et1_4.png",
+                        "expected_scale_percent":  170,
+                        "verify_attempt":  1,
+                        "verify_audit":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2\\verify_details\\234_POZD_WEB_K2-3_s11_et1_4_verify_attempt1.json"
+                    },
+                    {
+                        "index":  235,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s11_et1_5.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s11_et1_5.ai",
+                        "output_ai":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х170_POZD_WEB_K2-3_s11_et1_5.ai",
+                        "output_png":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_full_wip\\20260727_full_mkd2\\Корпус 2.3\\х170_POZD_WEB_K2-3_s11_et1_5.png",
+                        "expected_scale_percent":  170,
+                        "verify_attempt":  1,
+                        "verify_audit":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2\\verify_details\\235_POZD_WEB_K2-3_s11_et1_5_verify_attempt1.json"
+                    }
+                ]
+}

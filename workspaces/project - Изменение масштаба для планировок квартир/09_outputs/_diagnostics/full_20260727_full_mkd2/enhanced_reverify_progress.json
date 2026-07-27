@@ -1,0 +1,14 @@
+﻿{
+    "schema_version":  1,
+    "run_id":  "20260727_full_mkd2",
+    "status":  "error",
+    "started_at":  "2026-07-27T16:35:27",
+    "updated_at":  "2026-07-27T17:21:07",
+    "illustrator_pid":  8756,
+    "batches":  8,
+    "ok":  152,
+    "remaining":  236,
+    "verify_errors":  0,
+    "verifier":  "1.1.0-independent-full-ancestry",
+    "error":  "ENHANCED_REVERIFY_PAUSE_REQUESTED"
+}

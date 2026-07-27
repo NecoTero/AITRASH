@@ -1,0 +1,19 @@
+
+
+schema_version                : 1
+run_id                        : 20260727_full_mkd2
+status                        : paused
+started_at                    : 2026-07-27T16:35:27
+updated_at                    : 2026-07-27T16:37:29
+illustrator_pid               : 8756
+illustrator_working_set_bytes : 1881702400
+batches                       : 1
+ok                            : 1
+remaining                     : 387
+verify_errors                 : 0
+last_batch                    : 000_000_20260727_163527
+verifier                      : 1.1.0-independent-full-ancestry
+error                         : 
+
+
+

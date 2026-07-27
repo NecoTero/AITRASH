@@ -1,4 +1,0 @@
-status=OK
-version=29.8.1
-locale=ru_RU
-documents=0

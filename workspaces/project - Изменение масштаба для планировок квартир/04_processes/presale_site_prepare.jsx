@@ -316,6 +316,21 @@
         }
     }
 
+    function safeLayerPath(item) {
+        var names = [];
+        var layer;
+        try {
+            layer = item.layer;
+            while (layer && layer.typename === "Layer") {
+                names.unshift(layer.name);
+                layer = layer.parent;
+            }
+            return names.join("/");
+        } catch (error) {
+            return "";
+        }
+    }
+
     function safeArrayProperty(item, propertyName) {
         try {
             return arrayOfNumbers(item[propertyName]);
@@ -427,6 +442,7 @@
                 typename: item.typename,
                 name: safeName(item),
                 layer: safeLayerName(item),
+                layer_path: safeLayerPath(item),
                 parent_typename: parentType,
                 parent_name: parentName,
                 hidden: item.hidden,
@@ -472,6 +488,7 @@
                 typename: item.typename,
                 name: safeName(item),
                 layer: safeLayerName(item),
+                layer_path: safeLayerPath(item),
                 parent_typename: parentType,
                 parent_name: parentName,
                 hidden: item.hidden,
@@ -836,6 +853,7 @@
                 itemAudit[i].typename + "|" +
                 itemAudit[i].name + "|" +
                 itemAudit[i].layer + "|" +
+                itemAudit[i].layer_path + "|" +
                 itemAudit[i].parent_typename + "|" +
                 itemAudit[i].parent_name
             );
@@ -959,7 +977,7 @@
 
     function applyStatesToTarget(targetDocument, sourceLayerSnapshot, sourceItemSnapshot) {
         var targetLayerSnapshot = snapshotLayers(targetDocument);
-        var targetItemSnapshot = snapshotItemsLight(targetDocument);
+        var targetItemSnapshot = snapshotItems(targetDocument);
         var i;
 
         if (targetLayerSnapshot.states.length !== sourceLayerSnapshot.states.length) {
@@ -1130,6 +1148,62 @@
         }
     }
 
+    function findUniqueLayerByName(layers, name) {
+        var match = null;
+        var matches = 0;
+        var i;
+        for (i = 0; i < layers.length; i += 1) {
+            if (layers[i].name === name) {
+                match = layers[i];
+                matches += 1;
+            }
+        }
+        if (matches > 1) {
+            fail("В целевом документе неоднозначное имя слоя: " + name);
+        }
+        return match;
+    }
+
+    function restoreMissingEmptyLayers(sourceLayers, targetContainer) {
+        var i;
+        var sourceLayer;
+        var targetLayer;
+        var previousTargetLayer;
+        for (i = 0; i < sourceLayers.length; i += 1) {
+            sourceLayer = sourceLayers[i];
+            targetLayer = findUniqueLayerByName(
+                targetContainer.layers,
+                sourceLayer.name
+            );
+            if (!targetLayer) {
+                if (sourceLayer.pageItems.length !== 0 ||
+                        sourceLayer.layers.length !== 0) {
+                    fail("После вставки отсутствует непустой слой: " +
+                        sourceLayer.name);
+                }
+                targetLayer = targetContainer.layers.add();
+                targetLayer.name = sourceLayer.name;
+                if (i > 0) {
+                    previousTargetLayer = findUniqueLayerByName(
+                        targetContainer.layers,
+                        sourceLayers[i - 1].name
+                    );
+                    if (!previousTargetLayer) {
+                        fail("Не найден предыдущий слой для восстановления порядка: " +
+                            sourceLayer.name);
+                    }
+                    targetLayer.move(
+                        previousTargetLayer,
+                        ElementPlacement.PLACEAFTER
+                    );
+                }
+            }
+            if (sourceLayer.layers && sourceLayer.layers.length) {
+                restoreMissingEmptyLayers(sourceLayer.layers, targetLayer);
+            }
+        }
+    }
+
     function copyArtworkWithLayers(
         sourceDocument,
         targetDocument,
@@ -1139,26 +1213,43 @@
         var defaultLayer = targetDocument.layers[0];
         var originalPasteRemembersLayers = app.pasteRemembersLayers;
         var targetSnapshots;
+        var transferRoots;
 
         try {
             sourceDocument.activate();
             makeEditable(sourceLayerSnapshot.states, sourceItemSnapshot.states);
             sourceDocument.selection = null;
+            app.pasteRemembersLayers = true;
+            if (app.pasteRemembersLayers !== true) {
+                fail("Illustrator не включил Paste Remembers Layers.");
+            }
+            transferRoots = rootItems(sourceDocument);
+            app.executeMenuCommand("selectall");
+            if (!sourceDocument.selection ||
+                    sourceDocument.selection.length !== transferRoots.length) {
+                fail("Illustrator выделил не все корневые объекты для " +
+                    "pixel-native переноса: ожидалось " + transferRoots.length +
+                    ", выделено " +
+                    (sourceDocument.selection ?
+                        sourceDocument.selection.length : 0) + ".");
+            }
+            app.executeMenuCommand("copy");
+            sourceDocument.selection = null;
 
             targetDocument.activate();
-            app.pasteRemembersLayers = false;
-            createLayerTree(sourceDocument.layers, targetDocument);
+            app.executeMenuCommand("pasteInPlace");
+            targetDocument.selection = null;
+
             defaultLayer.locked = false;
             defaultLayer.visible = true;
-            if (defaultLayer.pageItems.length !== 0 || defaultLayer.layers.length !== 0) {
-                fail("Дефолтный слой целевого документа не пуст.");
+            if (defaultLayer.pageItems.length !== 0 ||
+                    defaultLayer.layers.length !== 0) {
+                fail("Дефолтный слой целевого документа не пуст после переноса.");
             }
             defaultLayer.remove();
-            copyLayerContents(
-                sourceDocument,
-                targetDocument,
+            restoreMissingEmptyLayers(
                 sourceDocument.layers,
-                targetDocument.layers
+                targetDocument
             );
             copyLayerAppearance(
                 sourceDocument.layers,
@@ -1186,7 +1277,12 @@
         var artboards = snapshotArtboards(document);
         var visible = boundsInfo(document.visibleBounds);
         var layers = snapshotLayers(document);
-        var items = snapshotItemsLight(document);
+        var items = snapshotItems(document);
+        var geometryFailures = compareItemGeometry(
+            expected.item_geometry,
+            items.audit,
+            tolerance
+        );
         var strokeCheck = targetStrokeMismatches(
             document,
             Number(config.stroke_width_pt),
@@ -1223,6 +1319,10 @@
         if (items.audit.length !== expected.item_count) {
             fail("После повторного открытия изменилось число объектов.");
         }
+        if (geometryFailures.length) {
+            fail("После повторного открытия изменилась геометрия объектов: " +
+                geometryFailures.slice(0, 20).join(",") + ".");
+        }
         if (strokeCheck.mismatches.length) {
             fail("После повторного открытия не все обводки равны 0.75 px.");
         }
@@ -1239,7 +1339,7 @@
             layer_signature_match: true,
             item_structure_match: true,
             item_state_match: true,
-            item_geometry_match: "regression_proven",
+            item_geometry_match: true,
             item_count: items.audit.length,
             stroke_count: strokeCheck.records.length,
             stroke_widths: strokeSummary(strokeCheck.records, true),
@@ -2003,10 +2103,7 @@
             }
 
             finalBounds = boundsInfo(sourceDocument.visibleBounds);
-            finalItemSnapshot = {
-                states: sourceItemSnapshot.states,
-                audit: sourceItemSnapshot.audit
-            };
+            finalItemSnapshot = snapshotItems(sourceDocument);
             audit.visible_bounds_final_processed_source = finalBounds;
             audit.artboards_final_processed_source =
                 snapshotArtboards(sourceDocument);
@@ -2070,7 +2167,7 @@
                 sourceDocument,
                 targetDocument,
                 sourceLayerSnapshot,
-                sourceItemSnapshot
+                finalItemSnapshot
             );
             targetBounds = boundsInfo(targetDocument.visibleBounds);
             if (targetDocument.rulerUnits !== RulerUnits.Pixels) {
@@ -2089,13 +2186,20 @@
                     sourceItemStateSignature) {
                 fail("При переносе в pixel-native документ изменились объекты.");
             }
+            if (compareItemGeometry(
+                    finalItemSnapshot.audit,
+                    targetSnapshots.items.audit,
+                    tolerance
+                ).length) {
+                fail("При переносе в pixel-native документ изменилась геометрия объектов.");
+            }
             audit.pixel_transfer = {
                 ruler_units_pixels:
                     targetDocument.rulerUnits === RulerUnits.Pixels,
                 layer_signature_match: true,
                 item_structure_match: true,
                 item_state_match: true,
-                item_geometry_match: "regression_proven",
+                item_geometry_match: true,
                 visible_bounds_match: true,
                 stroke_mismatch_count: "verified_after_reopen",
                 page_items: targetSnapshots.items.audit.length,
@@ -2120,6 +2224,7 @@
                 item_structure_signature: sourceItemStructureSignature,
                 item_state_signature: sourceItemStateSignature,
                 item_count: sourceItemSnapshot.audit.length,
+                item_geometry: finalItemSnapshot.audit,
                 color_space: audit.color_space
             };
             reopenVerification = verifyOpenOutputDocument(
@@ -2128,7 +2233,8 @@
                 context.config
             );
             audit.reopen_verification = reopenVerification;
-            row.item_geometry_match_after_reopen = "regression_proven";
+            row.item_geometry_match_after_reopen =
+                reopenVerification.item_geometry_match ? "true" : "false";
             row.ruler_units_pixels_after_reopen = "true";
             reopenedDocument.close(SaveOptions.DONOTSAVECHANGES);
             reopenedDocument = null;

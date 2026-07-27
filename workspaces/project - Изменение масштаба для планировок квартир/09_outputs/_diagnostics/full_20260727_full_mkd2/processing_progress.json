@@ -1,0 +1,22 @@
+﻿{
+    "schema_version":  1,
+    "run_id":  "20260727_full_mkd2",
+    "status":  "completed",
+    "started_at":  "2026-07-27T11:59:03",
+    "updated_at":  "2026-07-27T16:23:44",
+    "illustrator_pid":  8756,
+    "illustrator_working_set_bytes":  1887789056,
+    "process_batches":  48,
+    "verify_batches":  48,
+    "ok":  388,
+    "remaining":  0,
+    "statuses":  {
+                     "PENDING":  0,
+                     "ERROR":  0,
+                     "PROCESSED_OK":  0,
+                     "VERIFY_ERROR":  0,
+                     "OK":  388,
+                     "SOURCE_HASH_MISMATCH":  0
+                 },
+    "error":  ""
+}

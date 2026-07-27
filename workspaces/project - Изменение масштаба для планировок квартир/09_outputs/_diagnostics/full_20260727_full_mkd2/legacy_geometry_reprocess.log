@@ -1,0 +1,9 @@
+﻿[2026-07-27T16:24:28] START run_id=20260727_full_mkd2 pid=8756
+[2026-07-27T16:25:03] OK index=38 attempts=2 verify_attempts=1 pid=8756
+[2026-07-27T16:26:30] OK index=68 attempts=2 verify_attempts=1 pid=8756
+[2026-07-27T16:27:08] OK index=164 attempts=2 verify_attempts=1 pid=8756
+[2026-07-27T16:28:20] OK index=168 attempts=2 verify_attempts=1 pid=8756
+[2026-07-27T16:30:46] OK index=233 attempts=2 verify_attempts=1 pid=8756
+[2026-07-27T16:31:32] OK index=355 attempts=2 verify_attempts=1 pid=8756
+[2026-07-27T16:33:06] OK index=384 attempts=2 verify_attempts=1 pid=8756
+[2026-07-27T16:33:06] COMPLETE count=7 pid=8756

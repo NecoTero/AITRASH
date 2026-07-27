@@ -1,0 +1,59 @@
+﻿{
+    "schema_version":  1,
+    "run_id":  "20260727_full_mkd2",
+    "batch_id":  "331_340_20260727_115210",
+    "created_at":  "2026-07-27T11:52:10",
+    "batch_report":  "D:\\AI\\AITRASH\\workspaces\\project - Изменение масштаба для планировок квартир\\09_outputs\\_diagnostics\\full_20260727_full_mkd2\\preflight_batches\\preflight_331_340_20260727_115210_report.csv",
+    "entries":  [
+                    {
+                        "index":  331,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s8_et1,3_5.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s8_et1,3_5.ai"
+                    },
+                    {
+                        "index":  332,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s8_et1_1.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s8_et1_1.ai"
+                    },
+                    {
+                        "index":  333,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s8_et1_10.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s8_et1_10.ai"
+                    },
+                    {
+                        "index":  334,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s8_et1_2.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s8_et1_2.ai"
+                    },
+                    {
+                        "index":  335,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s8_et1_3.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s8_et1_3.ai"
+                    },
+                    {
+                        "index":  336,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s8_et1_4.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s8_et1_4.ai"
+                    },
+                    {
+                        "index":  337,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s8_et1_5.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s8_et1_5.ai"
+                    },
+                    {
+                        "index":  338,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s8_et1_6.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s8_et1_6.ai"
+                    },
+                    {
+                        "index":  339,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s8_et1_8.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s8_et1_8.ai"
+                    },
+                    {
+                        "index":  340,
+                        "source_relpath":  "Корпус 2.3/POZD_WEB_K2-3_s8_et1_9.ai",
+                        "source_ai":  "D:\\AI\\AITRASH\\LIBRARY\\02_CATALOG\\02_PRESALE_Поздняково\\01_ARTIFACTS\\МКД2\\Корпус 2.3\\POZD_WEB_K2-3_s8_et1_9.ai"
+                    }
+                ]
+}

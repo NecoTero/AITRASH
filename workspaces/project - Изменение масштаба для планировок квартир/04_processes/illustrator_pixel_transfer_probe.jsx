@@ -228,14 +228,23 @@
     var sourceFile = new File(
         scriptFolder.fsName +
         "/../../../LIBRARY/02_CATALOG/02_PRESALE_Поздняково/01_ARTIFACTS/МКД2/" +
-        "Корпус 2.3/POZD_WEB_K2-3_s9_et5_5.ai"
+        "Корпус 2.1/POZD_WEB_K2-1_s3_et1_4.ai"
     );
     var diagnosticsFolder = new Folder(
         scriptFolder.fsName +
-        "/../09_outputs/_diagnostics/full_20260724_165214_full_mkd2"
+        "/../09_outputs/_diagnostics/unit_test_pixels_20260727"
     );
-    var outputFile = new File(diagnosticsFolder.fsName + "/pixel_transfer_probe.ai");
-    var resultFile = new File(diagnosticsFolder.fsName + "/pixel_transfer_probe.txt");
+    if (!diagnosticsFolder.exists && !diagnosticsFolder.create()) {
+        fail("Cannot create diagnostics folder: " + diagnosticsFolder.fsName);
+    }
+    var outputFile = new File(
+        diagnosticsFolder.fsName +
+        "/pixel_units_POZD_WEB_K2-1_s3_et1_4.ai"
+    );
+    var resultFile = new File(
+        diagnosticsFolder.fsName +
+        "/pixel_units_POZD_WEB_K2-1_s3_et1_4.txt"
+    );
     var sourceLayerSignature;
     var sourceBounds;
     var sourcePageItems;

@@ -1,0 +1,12 @@
+﻿{
+    "schema_version":  1,
+    "run_id":  "20260727_full_mkd2",
+    "status":  "completed",
+    "started_at":  "2026-07-27T11:43:15",
+    "updated_at":  "2026-07-27T11:53:38",
+    "illustrator_pid":  8756,
+    "batches":  39,
+    "analyzed_ok":  388,
+    "pending":  0,
+    "error":  ""
+}
